@@ -1,75 +1,45 @@
-/*********** Librerias utilizadas **************/
+/// Librerias utilizadas 
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
 
-/************* Definiciones ********************/
 
-//Codigos
-#define PROGRAM		256
-#define TYPE		257
-#define VAR			258
-#define ARRAY		259
-#define BEGIN		260
-#define END			261
-#define PR_DO		262
-#define TO			263
-#define DOWNTO		264
-#define THEN		265
-#define OF			266
-#define FUNCTION	267
-#define PROCEDURE	268
-#define PR_INTEGER	269
-#define PR_REAL		270
-#define PR_BOOLEAN	271
-#define PR_CHAR		272
-#define PR_FOR		273
-#define PR_IF		274
-#define PR_ELSE		275
-#define PR_WHILE	276
-#define REPEAT		277
-#define UNTIL		278
-#define PR_CASE		279
-#define RECORD		280
-#define WRITELN		281
-#define WRITE		282
-#define CONST		283
-#define NUM			284
-#define ID			285
-#define BOOL		286
-#define CAR			287
-#define LITERAL		288
-#define NOT			289
-#define OPREL		290
-#define OPSUMA		291
-#define OPMULT		292
-#define OPASIGNA	293
-#define USER_TYPE	294
-// Fin Codigos
-#define TAMBUFF 	5
-#define TAMLEX 		50
-#define TAMHASH 	101
+// Definicion de tokens con valores numericos simbolicos
+#define L_CORCHETE		256
+#define R_CORCHETE		257
+#define L_LLAVE			258
+#define R_LLAVE			259
+#define COMA			300
+#define DOS_PUNTOS		301
+#define STRING			302
+#define NUMBER			303
+#define PR_TRUE			304
+#define PR_FALSE		305
+#define PR_NULL			306
 
-/************* Estructuras ********************/
 
-typedef struct entrada{
-	//definir los campos de 1 entrada de la tabla de simbolos
-	int compLex;
-	char lexema[TAMLEX];	
-	struct entrada *tipoDato; // null puede representar variable no declarada	
-	// aqui irian mas atributos para funciones y procedimientos...
-	
-} entrada;
+// constantes de tamaÃ±os
+#define TAMANHOBUFFER 				5		// tamaÃ±o del buffer
+#define TAMANHOLEXICO 				50		// tamaÃ±o del lexema
+#define TAMANHOHASH 				101		// tamaÃ±o de la tabla hash
 
+// estructura de entrada
+typedef struct input{
+	int componenteLexico;			// componente lexico
+	char lexema[TAMANHOLEXICO];		// lexema
+	struct input *tipoDato; 		// null puede representar variable no declarada		
+} input;
+
+// estructura de tokens
 typedef struct {
-	int compLex;
-	entrada *pe;
+	int componenteLexico;			// componente lexico
+	input *pe;
 } token;
 
-/************* Prototipos ********************/
-void insertar(entrada e);
-entrada* buscar(const char *clave);
+// prototipos de funcion y procedimientos
+void insertar(input e);
+input* buscar(const char *clave);
 void initTabla();
 void initTablaSimbolos();
 void sigLex();
