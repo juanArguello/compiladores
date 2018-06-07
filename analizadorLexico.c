@@ -295,11 +295,45 @@ void sigLex()
 				{
 					error("Se llego al fin de archivo sin finalizar un literal");
 				}
+				else if(!isgraph(c)){
+					switch(c){
+						case 'ñ':
+							id[i]='\244';
+							i++;
+							break;
+						case 'Ñ':
+							id[i]='\245';
+							i++;
+							break;
+						case 'á':
+							id[i]='\240';
+							i++;
+							break;
+						case 'í':
+							id[i]='\241';
+							i++;
+							break;
+						case 'ó':
+							id[i]='\242';
+							i++;
+							break;
+						case 'ú':
+							id[i]='\243';
+							i++;
+							break;
+						case 'é':
+							id[i]='\202';
+							i++;
+							break;
+						default:
+							break;
+					}
+				}
 				else{
 					id[i]=c;
 					i++;
 				}
-			}while(isascii(c));
+			}while(isascii(c) || !isgraph(c) );
 			id[i]='\0';
 			if (c!=EOF)
 				ungetc(c,archivo);
